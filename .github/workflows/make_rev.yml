@@ -6,12 +6,12 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: Write info to version.json
+        run: python3 write_version_json.py ${{ github.repository }} ${{ github.ref_name }} ${{ github.sha }}
       - name: Delete files to not include
-        run: rm -rf .github *.sh
-      - name: Write sha to commit.txt
-        run: echo ${{ github.sha }} > commit.txt
+        run: rm -rf .github *.sh write_version_json.py
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          name: fast64_${{ github.sha }}
+          name: blender_addon_updater_github_demo_HelloWorld_${{ github.sha }}
           path: ./
